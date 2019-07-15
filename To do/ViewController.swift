@@ -6,8 +6,6 @@
 //  Copyright © 2019 Rob Glazer. All rights reserved.
 //
 
-//Testing for github pt. 2
-
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Modify, Pressed{
