@@ -29,6 +29,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let firstItem = Item(desc:"", checked: false)
         self.tableView.isEditing = true
         let itemstemp = UserDefaults.standard.data(forKey: "Items")
+        
+        //Try to retreive data from storage
         do {
             let unarchiveitems = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(itemstemp ?? NSKeyedArchiver.archivedData(withRootObject: [Item(desc: "", checked: false)], requiringSecureCoding: true)) as? [Item]
             items = unarchiveitems!
@@ -38,7 +40,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         
-        //      immediately start blank list with empty item
+        //immediately start blank list with empty item
         if (items.count<1){
             items.append(firstItem)
         }
@@ -101,8 +103,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         if items[indexPath.row].checked{
-            cell.backgroundColor=UIColor.init(red: 0.97, green: 0.9, blue: 0.9, alpha: 0.91)
-            cell.descLabelOutlet.backgroundColor=UIColor.init(red: 0.97, green: 0.9, blue: 0.9, alpha: 0.91)
+            let pressedHighlight = UIColor.init(red: 0.97, green: 0.9, blue: 0.9, alpha: 0.91)
+            cell.backgroundColor=pressedHighlight
+            cell.descLabelOutlet.backgroundColor=pressedHighlight
         }
             
             
@@ -163,7 +166,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    func store(){
+    func store(){ //Updates items in local storage, called every time the list is changed
         let userDefaults = UserDefaults.standard
         do {
             
@@ -190,6 +193,7 @@ class Item: NSObject, NSCoding{
         self.desc = desc
         self.checked = checked
     }
+    
     required convenience init(coder aDecoder: NSCoder) {
         let desc = aDecoder.decodeObject(forKey: "desc") as! String
         let checked = aDecoder.decodeBool(forKey: "checked")

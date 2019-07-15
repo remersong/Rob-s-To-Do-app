@@ -52,8 +52,9 @@ class CellController: UITableViewCell {
         //checkButton pressed
         click?.pressed(row: self.row!)
         if items![self.row!].checked{
-            self.backgroundColor=UIColor.init(red: 0.97, green: 0.9, blue: 0.9, alpha: 0.91)
-            descLabelOutlet.backgroundColor=UIColor.init(red: 0.97, green: 0.9, blue: 0.9, alpha: 0.91)
+            let pressedHighlight = UIColor.init(red: 0.97, green: 0.9, blue: 0.9, alpha: 0.91)
+            self.backgroundColor=pressedHighlight
+            descLabelOutlet.backgroundColor=pressedHighlight
         }
             
             
