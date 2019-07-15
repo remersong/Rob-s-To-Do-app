@@ -24,21 +24,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var items: [Item] = [ ] //List of items
     
     override func viewDidLoad() {
-        let firstItem = Item(desc:"", checked: false)
         self.tableView.isEditing = true
-        let itemstemp = UserDefaults.standard.data(forKey: "Items")
         
-        //Try to retreive data from storage
-        do {
-            let unarchiveitems = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(itemstemp ?? NSKeyedArchiver.archivedData(withRootObject: [Item(desc: "", checked: false)], requiringSecureCoding: true)) as? [Item]
-            items = unarchiveitems!
-        }
-        catch{
-            print("Error retrieving data")
-        }
-        
+        retrieve()
         
         //immediately start blank list with empty item
+        let firstItem = Item(desc:"", checked: false)
+        
         if (items.count<1){
             items.append(firstItem)
         }
@@ -174,6 +166,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         catch{
             print("Error storing data")
+        }
+        
+    }
+    func retrieve(){
+        let itemstemp = UserDefaults.standard.data(forKey: "Items")
+        
+        //Try to retreive data from storage
+        do {
+            let unarchiveitems = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(itemstemp ?? NSKeyedArchiver.archivedData(withRootObject: [Item(desc: "", checked: false)], requiringSecureCoding: true)) as? [Item]
+            items = unarchiveitems!
+        }
+        catch{
+            print("Error retrieving data")
         }
         
     }
