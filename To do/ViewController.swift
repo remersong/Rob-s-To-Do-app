@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
-    var items: [Item] = [ ] //List of items
+    var items = [Item]() //List of items
     
     override func viewDidLoad() {
         self.tableView.isEditing = true
@@ -165,6 +165,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
             
         catch{
+            
             print("Error storing data")
         }
         
@@ -185,34 +186,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
 }
-class Item: NSObject, NSCoding{
-    
-    //Item: An object containing a task description and boolean that states whether the task has been completed or not
-    
-    var desc = ""
-    var checked = false
-    
-    init(desc: String, checked: Bool){
-        self.desc = desc
-        self.checked = checked
-    }
-    
-    required convenience init(coder aDecoder: NSCoder) {
-        let desc = aDecoder.decodeObject(forKey: "desc") as! String
-        let checked = aDecoder.decodeBool(forKey: "checked")
-        
-        self.init(desc: desc, checked: checked)
-    }
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(desc, forKey: "desc")
-        aCoder.encode(checked, forKey: "checked")
-        
-    }
-    
-    
-    
-    
-    
-}
+
 
 
